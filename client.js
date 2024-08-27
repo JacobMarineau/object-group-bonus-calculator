@@ -47,10 +47,6 @@ console.log("array of employee data: ", employees);
 function calculateIndividualEmployeeBonus(employee) {
   // your logic here
   // debugger;
-  // var for bonus tiers
-  let threeBonus = 4;
-  let fourBonus = 6;
-  let fiveBonus = 10;
   // bonus object for storing data
   const bonusObj = {
     name: employee.name,
@@ -58,10 +54,8 @@ function calculateIndividualEmployeeBonus(employee) {
     bonus: 0,
     totalCompensation: 0,
   };
+  const maxBonus = 13;
   // if statements for checking bonus %
-  if (employee.reviewRating < 2) {
-    bonusObj.bonusPercentage = 0;
-  }
   if (employee.reviewRating === 3) {
     bonusObj.bonusPercentage = 4;
   }
@@ -71,38 +65,30 @@ function calculateIndividualEmployeeBonus(employee) {
   if (employee.reviewRating === 5) {
     bonusObj.bonusPercentage = 10;
   }
-  // if statements for checking if income over $65000
-  // if (employee.annualSalary > 65000) {
-  //   threeBonus = threeBonus - 1;
-  // }
-  // if (employee.annualSalary > 65000) {
-  //   fourBonus = fourBonus - 1;
-  // }
-  // if (employee.annualSalary > 65000) {
-  //   fiveBonus = fiveBonus - 1;
-  // }
-  if (employee.annualSalary > 65000) {
+  // if statement to check if income is above $65000
+  if (employee.annualSalary > 65000 && bonusObj.bonusPercentage > 0) {
     bonusObj.bonusPercentage -= 1;
   }
+  // creating bonus
   bonusObj.bonus = (bonusObj.bonusPercentage / 100) * employee.annualSalary;
-  // if (employee.reviewRating === 3) {
-  //   bonusObj.bonus = (threeBonus / 100) * employee.annualSalary;
-  // } else if (employee.reviewRating === 4) {
-  //   bonusObj.bonus = (fourBonus / 100) * employee.annualSalary;
-  // } else if (employee.reviewRating === 5) {
-  //   bonusObj.bonus = (fiveBonus / 100) * employee.annualSalary;
-  // }
-  if (employee.employeeNumber.length === 4) {
-    bonusObj.bonus = (5 / 100) * employee.annualSalary;
-  }
-  console.log(threeBonus);
 
-  //78487.5
+  // if statement to check if id is 4 providing
+  if (employee.employeeNumber.length === 4) {
+    bonusObj.bonusPercentage += 5;
+  }
+  // if statement for if bonus is over
+  if (bonusObj.bonusPercentage > 13) {
+    bonusObj.bonusPercentage = 13;
+  }
+
+  // getting total income
   bonusObj.totalCompensation = parseInt(employee.annualSalary) + bonusObj.bonus;
+
   console.log(bonusObj);
   return bonusObj;
 
   // return new object with bonus results
 }
+// loops through the array
 for (let n = 0; n < employees.length; n++)
   calculateIndividualEmployeeBonus(employees[n]);
